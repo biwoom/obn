@@ -20,7 +20,9 @@ urlpatterns = [
     url(r'^bookapp/', include('bookapp.urls')),
     # url(r'^backing/', include('backing.urls')),
     # url(r'^blogapp/', include('blogapp.urls')),
+    url(r'^introapp', include('introapp.urls')),
     url(r'', include('introapp.urls')),
+    # url(r'', include('wiki.urls')),
 ]
 
 if settings.DEBUG:
@@ -32,7 +34,8 @@ if settings.DEBUG:
 
 urlpatterns += [
     url(r'^notify/', get_notify_pattern()),
-    url(r'^wiki/', get_wiki_pattern())
+    url(r'^wiki/', get_wiki_pattern()),
+    # url(r'', get_wiki_pattern())
 ]
 
 handler500 = 'wiki_site.views.server_error'
