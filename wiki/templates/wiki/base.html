@@ -1,0 +1,21 @@
+{% extends "wiki/base_site.html" %}
+{% load staticfiles %}
+{# Intentionally empty, to allow easy customization with no copy-paste #}
+
+ <!--custom setting 커스텀 설정-->
+
+{% block wiki_site_title %} - Nalanda Wiki{% endblock %}
+
+{% block wiki_header_branding %}
+
+<!--브랜드 로고-->
+{% include "introapp/brand.html" %}
+
+{% endblock %}
+
+{% block wiki_header_navlinks %}
+
+<!--메뉴 목록-->
+{% include "introapp/main_menu.html" %}
+
+{% endblock %}

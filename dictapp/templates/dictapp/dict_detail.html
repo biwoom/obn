@@ -1,0 +1,184 @@
+{% extends 'dictapp/base.html' %}
+
+{% block content %}
+        
+   {% if user.is_staff %}
+    <div class="dictapp_btn">
+    <a class="btn btn-default" href="{% url 'dict_edit' pk=dict.pk %}"><span class="fa fa-pencil-square-o" aria-hidden="true">  편집</span></a>
+    <a class="btn btn-default" href="{% url 'dict_new' %}"><span class="fa fa-plus" aria-hidden="true">  NEW</span></a>
+    </div>
+   {% endif %}
+   
+    <div class="dict">
+
+        
+        <!--# 티벳어 표제어-->
+        <h1 class="dict_detail_head">{{ dict.title }}</h1>
+        
+        <!--# 단어 설명(품사/한국어 표제어/의미/용례/어원) -->
+        <p>{{ dict.get_markdown }}</p>
+        
+        <!--# 동사 시제 tense -->
+        {% if dict.ti_future_tense %}
+        <p><code>동사변화</code></p>
+        <table class="dict-tabel-multi-verb">
+    	<tr>
+    		<td>  미래</td>
+    		<td> <span></span> 현재</td>
+    		<td> <span></span> 과거</td>
+    		<td> <span></span> 명령</td>
+    	</tr>
+    	<tr>
+    		<td class="dict_detail_tibetword">  {{ dict.ti_future_tense }} </td>
+    		<td class="dict_detail_tibetword"> <span></span> {{ dict.ti_present_tense }} </td>
+    		<td class="dict_detail_tibetword"> <span></span> {{ dict.ti_past_tense }} </td>
+    		<td class="dict_detail_tibetword"> <span></span> {{ dict.ti_imperative }} </td>
+    	</tr>
+        </table>
+        {% endif %}
+        
+        <!--나머지 리스트 묶음-->
+        {% if dict.ti_wylie %}
+        <div class="dict-list-collapse">
+            <p><strong><code>관련단어</code></strong></p>
+            <!--# 와일리 ti_wylie -->
+            {% if dict.ti_wylie %}
+            <table class="dict-tabel-1-row">
+        	<tr>
+        		<td> wylie</td>
+        		<td>  <span></span> {{ dict.ti_wylie }} </td>
+        	</tr>
+            </table>
+            {% endif %}
+            
+            <!--# 유의어 ti_thesaurus -->
+            {% if dict.ti_thesaurus %}
+            <table class="dict-tabel-1-row">
+        	<tr>
+        		<td class="dict_detail_title"> 유의어</td>
+        		<td class="dict_detail_tibetword">  <p class="dict_detail_tibetword_ti_thesaurus">{{ dict.ti_thesaurus }}</p> </td>
+        	</tr>
+            </table>
+            {% endif %}
+            
+            <!--# 반의어 ti_antonym -->
+            {% if dict.ti_antonym %}
+            <table class="dict-tabel-1-row">
+        	<tr>
+        		<td> 반의어</td>
+        		<td class="dict_detail_tibetword"> <p class="dict_detail_tibetword_ti_thesaurus">{{ dict.ti_antonym }}</p>  </td>
+        	</tr>
+            </table>
+            {% endif %}
+            
+            <!--# 높임말 ti_honorific -->
+            {% if dict.ti_honorific %}
+            <table class="dict-tabel-1-row">
+        	<tr>
+        		<td> 높임말</td>
+        		<td class="dict_detail_tibetword"> <p class="dict_detail_tibetword_ti_thesaurus">{{ dict.ti_honorific }}</p>  </td>
+        	</tr>
+            </table>
+            {% endif %}
+            
+            <!--# 낮춤말 ti_humble_terms -->
+            {% if dict.ti_humble_terms %}
+            <table class="dict-tabel-1-row">
+        	<tr>
+        		<td> 낮춤말</td>
+        		<td class="dict_detail_tibetword"> <p class="dict_detail_tibetword_ti_thesaurus">{{ dict.ti_humble_terms }}</p>  </td>
+        	</tr>
+            </table>
+            {% endif %}
+            
+            <!--# 한국어 ti_korean_entry -->
+            {% if dict.ti_korean_entry %}
+            <table class="dict-tabel-1-row">
+        	<tr>
+        		<td> 한국어</td>
+        		<td class="dict_detail_korean"> <p class="dict_detail_tibetword_ti_thesaurus"> {{ dict.ti_korean_entry }}</p> </td>
+        	</tr>
+            </table>
+            {% endif %}
+            
+            <!--# 범어 ti_sanskrit_entry -->
+            {% if dict.ti_sanskrit_entry %}
+            <table class="dict-tabel-1-row">
+        	<tr>
+        		<td> 범어 </td>
+        		<td> <span></span> {{ dict.ti_sanskrit_entry }} </td>
+        	</tr>
+            </table>
+            {% endif %}
+            
+            <!--# 한문 ti_classical_chinese_entry -->
+            {% if dict.ti_classical_chinese_entry %}
+            <table class="dict-tabel-1-row">
+        	<tr>
+        		<td> 한문 </td>
+        		<td> <span></span> {{ dict.ti_classical_chinese_entry }} </td>
+        	</tr>
+            </table>
+            {% endif %}
+            
+            <!--# 빨리어 ti_pali_entry -->
+            {% if dict.ti_pali_entry %}
+            <table class="dict-tabel-1-row">
+        	<tr>
+        		<td> 빨리어 </td>
+        		<td> <span></span> {{ dict.ti_pali_entry }} </td>
+        	</tr>
+            </table>
+            {% endif %}
+            
+            <!--# 영어 ti_english_entry -->
+            {% if dict.ti_english_entry %}
+            <table class="dict-tabel-1-row">
+        	<tr>
+        		<td> 영어</td>
+        		<td> <span></span> {{ dict.ti_english_entry }} </td>
+        	</tr>
+            </table>
+            {% endif %}
+        </div>
+        {% endif %}
+        
+        <!--# 사진 자료 이미지파일-->
+        {% if dict.image %}
+        <div class="dict-list-collapse">
+            <p><strong><code>참고 이미지</code></strong></p>
+            <img src='{{ dict.image.url }}' class='img-responsive' />
+        </div>
+        {% endif %}
+        
+        <!--# 발음 오디오 파일-->
+        {% if dict.audio %}
+        <div class="dict-list-collapse">  
+            <p><strong><code>발음</code></strong>
+            <audio controls>
+            <source src="{{ dict.audio.url }}" type="audio/mp3">
+            </audio>
+            </p>
+        </div>
+        {% endif %}
+        
+        
+        <!--# 변경일자 -->
+        {% if dict.published_date %}
+        <div class="date">{{ dict.published_date }}</div>
+        {% endif %}
+        <!--============================================================-->
+        <!--생략부-->
+        {# <p>{{ dict.text|linebreaksbr }}</p> #}
+        {# <p>분류 : <span class=''>{{ dict.classification }}</span></p> #}
+        <!--#  파일-->
+        {# {% if dict.file %} #}
+        {# <div class=''> #}
+        {# <a href="{{ dict.file.url }}" download="{{ dict.file }}"><span class=''>파일 :</span> {{ dict.get_filename }}</a>  #}
+        {# </div>  #}
+        {# {% endif %} #}
+        
+    </div>
+  
+         
+{% endblock %}

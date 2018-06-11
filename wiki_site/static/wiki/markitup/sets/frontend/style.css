@@ -1,0 +1,65 @@
+/* -------------------------------------------------------------------
+// markItUp!
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+
+/*label[for=id_content] {float: none; clear: both; width: 100%; display: block;}*/
+
+.markItUp {padding: 0; width: auto;}
+
+textarea.markItUp {padding: 10px; float: none; display: block; width: 100%; height: 400px; color: #222; margin-top: 10px;line-height: 3.5rem; font-size: 17px;}
+
+.markItUpContainer {margin-right: 20px; width: -20px;}
+
+.markItUp .markItUpButton1 a {
+	background-image:url(images/h1.svg);
+}
+.markItUp .markItUpButton2 a {
+	background-image:url(images/h2.svg);
+}
+.markItUp .markItUpButton3 a {
+	background-image:url(images/h3.svg);
+}
+.markItUp .markItUpButton4 a {
+	background-image:url(images/h4.svg);
+}
+.markItUp .markItUpButton5 a {
+	background-image:url(images/h5.svg);
+}
+.markItUp .markItUpButton6 a {
+	background-image:url(images/h6.svg);
+}
+
+.markItUp .markItUpButton7 a {
+	background-image:url(images/bold.svg);
+	height: 13px;
+}
+.markItUp .markItUpButton8 a {
+	background-image:url(images/italic.svg);
+	height: 13px;
+}
+
+.markItUp .markItUpButton9 a {
+	background-image:url(images/list-bullet.svg);
+}
+.markItUp .markItUpButton10 a {
+	background-image:url(images/list-numeric.svg);
+}
+
+/*.markItUp .markItUpButton11 a {
+	background-image:url(images/picture.png);
+}
+.markItUp .markItUpButton12 a {
+	background-image:url(images/link.png);
+}*/
+
+.markItUp .markItUpButton11 a	{
+	background-image:url(images/quotes.svg);
+}
+.markItUp .markItUpButton12 a	{
+	background-image:url(images/code.svg);
+}
+
+.markItUp .preview a {
+	background-image:url(images/preview.png);
+}

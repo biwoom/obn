@@ -1,0 +1,50 @@
+*.pyc
+*~
+__pycache__
+*.bak
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+wiki_site/db/
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+# Images File #
+######################
+wiki_site/media/cache/
+wiki_site/media/wiki/images/
+wiki_site/media/wiki/attachments/
+introapp/python_email/email_info.py
+# 유틸 기본정보 #
+######################
+custom_utils/basic_info.py
+custom_utils/popup/popup_info.py
+popup_info.py
+# 후원 테스트앱 #
+######################
+backing/

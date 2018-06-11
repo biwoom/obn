@@ -1,0 +1,44 @@
+{% load i18n sekizai_tags %}
+{% addtoblock "js" %}
+<script type="text/javascript">
+  $(document).ready( function() {
+    $('.sidebar-form').each(function () {
+      $(this).submit( function() {
+        this.unsaved_article_title.value = $('#id_title').val();
+        this.unsaved_article_content.value = $('#id_content').val();
+      });
+    });
+  });
+</script>
+{% endaddtoblock %}
+
+<div class="panel-group col-lg-12" id="accordion_{{ plugin.slug }}">
+
+{% for plugin, plugin_form in sidebar %}
+
+  <div class="panel panel-default col-lg-4" style="margin-top: 15px; margin-rigth: 15px;" id="accordion_{{plugin.slug  }}">
+
+    <!--<div class="panel-heading">-->
+      <div class="panel-body">
+      <a class="panel-toggle" href="#collapse_{{ plugin.slug }}" data-toggle="collapse">
+        <h4 class="panel-title"><span class="fa fa-fw {{ plugin.sidebar.icon_class }}"></span> {{ plugin.sidebar.headline }}</h4>
+      </a>
+    </div>
+
+    <div id="collapse_{{ plugin.slug }}" class="panel-collapse collapse{% if plugin_form.errors %} in{% endif %}">
+      <div class="panel-body form-vertical">
+        {% if plugin.sidebar.template %}
+          {% with plugin_form as form and plugin as plugin %}
+            <form method="POST" class="form-horizontal sidebar-form" action="?f={{ plugin_form.form_id }}" enctype="multipart/form-data">
+              {% csrf_token %}
+              {% include plugin.sidebar.template %}
+            </form>
+          {% endwith %}
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+  
+{% endfor %}
+</div>

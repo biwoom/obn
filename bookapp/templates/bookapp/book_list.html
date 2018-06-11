@@ -1,0 +1,148 @@
+{% extends 'bookapp/base.html' %}
+{% load staticfiles%}
+{% block content %}
+    <!--검색결과 리스트로 반환-->
+{% if user.is_staff %}
+    <div class="bookapp_btn">
+    <a class="btn btn-default" href="{% url 'book_new' %}"><span class="fa fa-plus" aria-hidden="true">  NEW</span></a>
+    </div>
+{% endif %}
+   
+{# % for book in books % #}
+{% for book in books reversed %}
+<div class="book">
+    <!--저자 -->
+    {% if book.main_author %}
+    <div class="row">
+    <div class="col-md-12">
+    <div class="book_list_contents">
+            
+        <div class="col-md-3">
+        <div class="profile-img">
+            {% if book.cover_img %}
+            <div class="dict-list-collapse">
+            <img src='{{ book.cover_img.url }}' class='book_cover_img img-responsive' />
+            </div>
+            {% else %}
+            <img src="{% static "bookapp/tem/img/img-profile.jpg" %}" class="img-responsive" alt=""/>
+            {% endif %}
+        </div></div>
+        
+        <div class="col-md-9">
+         <div class="book_list_col content">
+             <div>
+            <!--컬렉션제목-->
+            {% if book.collection_title %} 
+            <a href="{% url 'book_detail' pk=book.pk %}" style="color: #666666;">
+            <p class="book_list_collection_title">{{ book.collection_title }}</p></a>
+            {% endif %}
+            <!--책 주제목-->
+            {% if book.main_title %}
+            <a href="{% url 'book_detail' pk=book.pk %}">
+            <h1 class="book_list_main_title">{{ book.main_title }}</h1>
+            </a>
+            {% endif %}
+            <!--책 부제목-->
+            {% if book.sub_title %}
+            <a href="{% url 'book_detail' pk=book.pk %}" style="color: #666666;">
+            <span class="book_list_sub_title lead">{{ book.sub_title }}</span></a>
+            {% endif %}
+            <!--책 권수-->
+            {% if book.volume %}
+            <a href="{% url 'book_detail' pk=book.pk %}" style="color: #666666;">
+            <span class="book_list_sub_title lead">{{ book.volume }}권</span></a>
+            {% endif %}
+            </div>
+        </div>
+        </div>    
+        
+            <div class="col-md-9">
+            <div class="book_list_col content">    
+                {% if book.main_author %}
+                <a href="{% url 'book_detail' pk=book.pk %}" style="color: #666666;">
+                <p>
+                <strong>저자</strong> &nbsp;:&nbsp;
+                    {{ book.main_author }}
+                {% endif %}
+                
+                {% if book.main_translator %}
+                &nbsp;|&nbsp;<strong>역자</strong>&nbsp;:&nbsp;
+                    {{ book.main_translator }}
+                {% endif %}
+                {% if book.publishing_company %}
+                &nbsp;|&nbsp;<strong>출판사</strong>&nbsp;:&nbsp;
+                    {{ book.publishing_company }}
+                {% endif %}
+                </p>
+                </a>
+            </div>
+            </div>
+            
+            <div class="col-md-9">
+            <div class="book_list_col content">
+                {% if book.page_num %} 
+                <a href="{% url 'book_detail' pk=book.pk %}" style="color: #666666;">
+                <p>
+                <strong>페이지수</strong>&nbsp;:&nbsp;
+                    {{ book.page_num }} 페이지
+                {% endif %}
+                
+                 {% if book.edition %}
+                &nbsp;|&nbsp;<strong>판</strong>&nbsp;:&nbsp;
+                    {{ book.edition }} 판
+                </p>
+                </a>
+                {% endif %}
+            </div>
+            </div>
+            
+            <div class="col-md-9">
+            <div class="book_list_col content"> 
+                {% if book.published_date %}
+                <address>
+                    <strong>출판일</strong><br>
+                    {{ book.published_date|date:"Y년 m월 d일" }}<br>
+                </address>
+                {% endif %}
+            </div>
+            </div>    
+    </div>	        
+    </div>
+    </div>
+    
+{% endif %}
+</div><!--class="book" -->
+{% endfor %} 
+
+
+    <!--검색결과 없는 경우-->
+     {% if error_text %}
+     <div class="jumbotron">
+     <h1 class="display-3">Sorry</h1>
+     <p>검색결과가 없습니다</p>
+     </div>
+     {% endif %}
+     
+    <!--페이지네이션 부분-->
+    <ul class="pagination">
+        {% if books.has_previous %}
+        <li><a class='page-item' href="?page={{ books.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" >&laquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+         
+        {% for pc in books.paginator.page_range %}
+        {% if pc == 0 %}
+            <li class="disabled"><span>...</span></li>
+        {% else %}
+            <li class="{% if pc == books.number %} active{% endif %}"><a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ pc }}{% if appended_key %}&{{ appended_key }}={{ appended_value }}{% endif %}">{{ pc }}</a></li>
+        {% endif %}
+        {% endfor %}
+
+        {% if books.has_next %}
+        <li><a class='page-item' href="?page={{ books.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&raquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+{% endblock %}
