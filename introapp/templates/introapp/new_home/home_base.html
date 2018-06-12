@@ -44,6 +44,9 @@
                   <!--브랜드 로고-->
                   {% include "introapp/brand.html" %}
             </div>
+        
+        {% if user.is_superuser %}
+        
             <div class="navbar-collapse collapse">
                   <!--메뉴 목록-->
                   {% include "introapp/main_menu.html" %}
@@ -93,7 +96,11 @@
                       </ul>
                 {% endif %}
                 </div>
+                
             </div>
+            
+        {% endif %}
+        
       </div>
  
  

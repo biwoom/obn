@@ -55,6 +55,9 @@
               </span>
             </div><!-- /input-group -->
           </form>
+          
+         {% if user.is_superuser %} 
+         
           <div class="navbar-right">
             {% if user.is_authenticated %}
             <ul class="nav navbar-nav">
@@ -176,6 +179,9 @@
             </ul>
             {% endif %}
           </div>
+          
+        {% endif %}
+          
           {% block wiki_header_navlinks %}
           <ul class="nav navbar-nav">
             <li class="active"><a href="/">{% trans "Home" %}</a></li>
