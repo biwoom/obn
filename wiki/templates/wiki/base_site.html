@@ -41,7 +41,7 @@
             <span class="icon-bar"></span>
           </button>
           {% block wiki_header_branding %}
-          <a class="navbar-brand" href="{% url 'wiki:root' %}">Nalanda Wiki</a>
+          <a class="navbar-brand" href="{% url 'wiki:root' %}">OBN Wiki</a>
           {% endblock %}
         </div>
         <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
@@ -56,7 +56,6 @@
             </div><!-- /input-group -->
           </form>
           
-         {% if user.is_superuser %} 
          
           <div class="navbar-right">
             {% if user.is_authenticated %}
@@ -70,15 +69,15 @@
                 <ul class="dropdown-menu">
                   {% if "ACCOUNT_HANDLING"|wiki_settings %}
                   <li>
-                    <!--<a href="{% url 'wiki:profile_update' %}">-->
-                    <a href="/password_change">  
+                    <a href="{% url 'wiki:profile_update' %}">
+                    <!--<a href="/password_change">  -->
                       <i class="fa fa-gear"></i>
                       {% trans "Account Settings" %}
                     </a>
                   </li>
                   <li>
-                    <!--<a href="{% url 'wiki:logout' %}">-->
-                      <a href="/logout">
+                    <a href="{% url 'wiki:logout' %}">
+                      <!--<a href="/logout">-->
                       <i class="fa fa-power-off"></i>
                       {% trans "Log out" %}
                     </a>
@@ -159,6 +158,18 @@
                       </a>
                     </li>    
                {% endif %}
+               
+              {% if user.is_superuser %} 
+              <li role="separator" class="divider"></li>
+              
+              <li>
+              <a href="/admin/auth/user/">
+                <span class="fa fa-home"></span>
+                <span style="padding: 3px;"></span>
+                <span class="">회원관리</span>
+              </a>
+              </li>
+               {% endif %}
               <!--end 문서 편집 메뉴 article_menu ====================-->
                   
                 </ul>
@@ -167,20 +178,19 @@
             {% else %}
             <ul class="nav navbar-nav">
               <li>
-                <!--<a href="{% login_url as wiki_login_url %}{{ wiki_login_url }}">{% trans "Log in" %}</a>-->
-                <a href="/login">{% trans "Log in" %}</a>
+                <a href="{% login_url as wiki_login_url %}{{ wiki_login_url }}">{% trans "Log in" %}</a>
+                <!--<a href="/login">{% trans "Log in" %}</a>-->
               </li>
               {% if "ACCOUNT_HANDLING"|wiki_settings %}
               <li>
-                <!--<a href="{% url 'wiki:signup' %}">{% trans "Sign up" %}</a>-->
-                 <a href="/signup">{% trans "Sign up" %}</a>
+                <a href="{% url 'wiki:signup' %}">{% trans "Sign up" %}</a>
+                 <!--<a href="/signup">{% trans "Sign up" %}</a>-->
               </li>
               {% endif %}
             </ul>
             {% endif %}
           </div>
           
-        {% endif %}
           
           {% block wiki_header_navlinks %}
           <ul class="nav navbar-nav">
