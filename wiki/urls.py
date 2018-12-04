@@ -72,10 +72,10 @@ class WikiURLPatterns(object):
             url(r'^missing-root/$',
                 article.MissingRootView.as_view(),
                 name='root_missing'),
-            # kjh-search-custom : (?P<path>.+/|) 추가
-            # url(r'^(?P<path>.+/|)_search/$',
+            # kjh-search-custom 
+            # url(r'^_search_sub/$',
             #     get_class_from_str(self.search_view_class).as_view(),
-            #     name='search'),    
+            #     name='search_sub'),    
             url(r'^_search/$',
                 get_class_from_str(self.search_view_class).as_view(),
                 name='search'),
